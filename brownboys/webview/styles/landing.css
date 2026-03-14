@@ -1,0 +1,132 @@
+
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #1a1a2e;
+  color: #f0e8d0;
+  font-family: 'Nunito', 'Segoe UI', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 28px;
+  border-bottom: 0.5px solid rgba(255,255,255,0.08);
+}
+
+.brand {
+  font-family: 'Space Mono', 'Courier New', monospace;
+  font-weight: 700;
+  font-size: 13px;
+  color: #e8d5a3;
+  letter-spacing: 0.12em;
+}
+
+.tag {
+  margin-left: auto;
+  font-size: 11px;
+  font-family: 'Space Mono', 'Courier New', monospace;
+  color: #7ecba1;
+  background: rgba(126,203,161,0.12);
+  border: 0.5px solid rgba(126,203,161,0.3);
+  border-radius: 20px;
+  padding: 3px 10px;
+}
+
+.hero {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 28px;
+  text-align: center;
+}
+
+.mascot {
+  width: 200px;
+  height: 200px;
+  margin-bottom: 28px;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
+}
+
+h1 {
+  font-size: 32px;
+  font-weight: 800;
+  color: #f0e8d0;
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+
+h1 span { color: #7ecba1; }
+
+p {
+  font-size: 15px;
+  color: #9898b0;
+  line-height: 1.7;
+  max-width: 400px;
+  margin-bottom: 36px;
+}
+
+.pills {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 36px;
+}
+
+.pill {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  font-family: 'Space Mono', 'Courier New', monospace;
+  color: #c4b8f0;
+  background: rgba(196,184,240,0.1);
+  border: 0.5px solid rgba(196,184,240,0.25);
+  border-radius: 20px;
+  padding: 6px 14px;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.btn {
+  background: #7ecba1;
+  color: #1a1a2e;
+  border: none;
+  border-radius: 12px;
+  padding: 15px 40px;
+  font-family: 'Space Mono', 'Courier New', monospace;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: background 0.15s, transform 0.15s;
+  margin-bottom: 14px;
+}
+
+.btn:hover {
+  background: #9edcb8;
+  transform: translateY(-2px);
+}
+
+.hint {
+  font-size: 11px;
+  font-family: 'Space Mono', 'Courier New', monospace;
+  color: #5f5f78;
+}
