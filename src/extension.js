@@ -39,7 +39,7 @@ class BrownBoysViewProvider {
         webviewView.webview.html = this._getWorkScreen(webviewView.webview);
       }
       if (msg.command === "startBreak") {
-        this._sessionDuration = msg.duration;
+        this._breakDuration = msg.duration;
         webviewView.webview.html = this._getBreak(webviewView.webview);
       }
 
@@ -55,7 +55,10 @@ class BrownBoysViewProvider {
 
       if (msg.command === "startSession") {
         vscode.window.showInformationMessage(
-          `Working for ${this._sessionDuration} min. Water every ${this._waterInterval} min. 20-20-20: ${msg.twentyTwentyTwenty ? "on" : "off"}`,
+          `Working for ${this._sessionDuration} mins. 
+          Water every ${this._waterInterval} mins.
+          Break Every ${this._breakDuration} mins.
+          20-20-20: ${msg.twentyTwentyTwenty ? "on" : "off"}`,
         );
         this._startBreakTimer(
           this._sessionDuration,
@@ -74,7 +77,7 @@ class BrownBoysViewProvider {
     const waterTimer = setInterval(
       () => {
         vscode.window.showInformationMessage(
-          `BrownBoys: Time to drink some water!`,
+          `Time to drink some water!`,
         );
       },
       waterInterval * 60 * 1000,
@@ -89,7 +92,7 @@ class BrownBoysViewProvider {
             `20-20-20: Look at something 20 meters away for 20 seconds!`,
           );
         },
-        20 * 60 * 1000,
+        1 * 60 * 1000,
       );
       setTimeout(() => clearInterval(eyeTimer), ms);
     }
@@ -101,7 +104,7 @@ class BrownBoysViewProvider {
       );
       // Go back to landing when session ends
       if (this._view) {
-        this._view.webview.html = this._getLanding(this._view.webview);
+        this._view.webview.html = this._getSessionRunning(this._view.webview);
       }
     }, ms);
   }
