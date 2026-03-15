@@ -44,7 +44,9 @@ class BrownBoysViewProvider {
       }
 
       if (msg.command === "startWater") {
-        this._sessionDuration = msg.duration;
+        // Keep the session duration from the prior screen (work session length)
+        // and store the user's chosen water reminder interval instead.
+        this._waterInterval = msg.duration;
         webviewView.webview.html = this._getWater(webviewView.webview);
       }
 
@@ -236,7 +238,7 @@ class BrownBoysViewProvider {
       webview.asWebviewUri(
         vscode.Uri.joinPath(this._context.extensionUri, "sprites", file),
       );
-      
+
     const cssUri = webview.asWebviewUri(
       vscode.Uri.joinPath(
         this._context.extensionUri,
@@ -257,6 +259,11 @@ class BrownBoysViewProvider {
   }
 
   _getSessionRunning(webview) {
+    const spritesPath = (file) =>
+      webview.asWebviewUri(
+        vscode.Uri.joinPath(this._context.extensionUri, "sprites", file),
+      );
+
     const cssUri = webview.asWebviewUri(
       vscode.Uri.joinPath(
         this._context.extensionUri,
@@ -265,6 +272,8 @@ class BrownBoysViewProvider {
         "animal.css",
       ),
     );
+
+    const durationMinutes = Number(this._sessionDuration) || 0;
 
     let html = fs.readFileSync(
       path.join(
@@ -279,7 +288,11 @@ class BrownBoysViewProvider {
 
     return html
       .replace(/{{cssUri}}/g, cssUri)
-      .replace(/{{cspSource}}/g, webview.cspSource);
+      .replace(/{{cspSource}}/g, webview.cspSource)
+      .replace(/{{turtle1}}/g, spritesPath("turtle_1.png"))
+      .replace(/{{turtle2}}/g, spritesPath("turtle_2.png"))
+      .replace(/{{turtle3}}/g, spritesPath("turtle_3.png"))
+      .replace(/{{duration}}/g, durationMinutes);
   }
 }
 
