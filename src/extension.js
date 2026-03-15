@@ -241,6 +241,7 @@
 
 // module.exports = { activate };
 
+
 const vscode = require("vscode");
 const fs = require("fs");
 const path = require("path");
@@ -269,6 +270,7 @@ class BrownBoysViewProvider {
       localResourceRoots: [
         vscode.Uri.joinPath(this._context.extensionUri, "webview"),
         vscode.Uri.joinPath(this._context.extensionUri, "assets"),
+        vscode.Uri.joinPath(this._context.extensionUri, "sprites")
       ],
     };
 
@@ -341,17 +343,44 @@ class BrownBoysViewProvider {
   // ── HTML loaders ──────────────────────────────────────
 
   _getLanding(webview) {
+    const spritesPath = (file) => webview.asWebviewUri(
+        vscode.Uri.joinPath(this._context.extensionUri, "sprites", file)
+    );
+    
     const cssUri = webview.asWebviewUri(
       vscode.Uri.joinPath(
         this._context.extensionUri, "webview", "styles", "landing.css"
       )
     );
+
     let html = fs.readFileSync(
       path.join(this._context.extensionPath, "webview", "landing.html"), "utf8"
     );
+
     return html
       .replace(/{{cssUri}}/g, cssUri)
-      .replace(/{{cspSource}}/g, webview.cspSource);
+      .replace(/{{cspSource}}/g, webview.cspSource)
+        .replace(/{{cssUri}}/g, cssUri)
+        .replace(/{{cspSource}}/g, webview.cspSource)
+        .replace(/{{cat_ICONIC}}/g, spritesPath("cat_ICONIC.png"))
+        .replace(/{{cat_icon_whiskers}}/g, spritesPath("cat_icon_whiskers.png"))
+
+        .replace(/{{cat_start_pur_1}}/g, spritesPath("cat_start_pur_1.png"))
+        .replace(/{{cat_start_pur_2}}/g, spritesPath("cat_start_pur_2.png"))
+        .replace(/{{cat_start_pur_3}}/g, spritesPath("cat_start_pur_3.png"))
+        .replace(/{{cat_start_pur_4}}/g, spritesPath("cat_start_pur_4.png"))
+
+        .replace(/{{cat_purring_1}}/g, spritesPath("cat_purring_1.png"))
+        .replace(/{{cat_purring_2}}/g, spritesPath("cat_purring_2.png"))
+        .replace(/{{cat_purring_3}}/g, spritesPath("cat_purring_3.png"))
+        .replace(/{{cat_purring_4}}/g, spritesPath("cat_purring_4.png"))
+
+        .replace(/{{otter_1}}/g, spritesPath("otter_1.png"))
+        .replace(/{{otter_2}}/g, spritesPath("otter_2.png"))
+        .replace(/{{otter_3}}/g, spritesPath("otter_3.png"))
+        .replace(/{{turtle_1}}/g, spritesPath("turtle_1.png"))
+        .replace(/{{turtle_2}}/g, spritesPath("turtle_2.png"))  
+        .replace(/{{turtle_3}}/g, spritesPath("turtle_3.png"));
   }
 
   _getBreakScreen(webview) {
@@ -369,6 +398,10 @@ class BrownBoysViewProvider {
   }
 
   _getWater(webview) {
+    const spritesPath = (file) => webview.asWebviewUri(
+        vscode.Uri.joinPath(this._context.extensionUri, "sprites", file)
+    );
+
     const cssUri = webview.asWebviewUri(
       vscode.Uri.joinPath(
         this._context.extensionUri, "webview", "styles", "style.css"
@@ -379,7 +412,8 @@ class BrownBoysViewProvider {
     );
     return html
       .replace(/{{cssUri}}/g, cssUri)
-      .replace(/{{cspSource}}/g, webview.cspSource);
+      .replace(/{{cspSource}}/g, webview.cspSource)
+      .replace(/{{otter_icon}}/g, spritesPath("otter_icon.png"));
   }
 
   _get202020(webview) {
@@ -399,26 +433,26 @@ class BrownBoysViewProvider {
 
   _getSessionRunning(webview) {
     const cssUri = webview.asWebviewUri(
-    vscode.Uri.joinPath(
-      this._context.extensionUri,
-      "webview",
-      "styles",
-      "animal.css"
-    ),
-  );
+      vscode.Uri.joinPath(
+        this._context.extensionUri,
+        "webview",
+        "styles",
+        "animal.css"
+      ),
+    );
 
-  let html = fs.readFileSync(
-    path.join(this._context.extensionPath,
+    let html = fs.readFileSync(
+      path.join(this._context.extensionPath,
 
-      "webview",
-      "animal.html"),
+        "webview",
+        "animal.html"),
 
-    "utf8",
-  );
+      "utf8",
+    );
 
-  return html
-    .replace(/{{cssUri}}/g, cssUri)
-    .replace(/{{cspSource}}/g, webview.cspSource)
+    return html
+        .replace(/{{cssUri}}/g, cssUri)
+        .replace(/{{cspSource}}/g, webview.cspSource)
   }
 }
 
