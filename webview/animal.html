@@ -14,5 +14,72 @@
   <link rel="stylesheet" href="{{cssUri}}">
 </head>
 <body>
+
+
+  <div class="progress-wrapper">
+    <div class="progress-label">Session progress</div>
+    <div class="progress-container" aria-label="Session progress">
+      <div id="progressFill" class="progress-fill"></div>
+      <img id="turtleOnBar" src="{{turtle1}}" alt="turtle" class="turtle-on-bar" width="54" height="54">
+    </div>
+    <div id="timerText" class="timer-text">Loading…</div>
+  </div>
+
+  <script>
+    const durationMinutes = {{duration}} || 0;
+    const turtleSrcs = ['{{turtle1}}', '{{turtle2}}', '{{turtle3}}'];
+
+    function formatTime(seconds) {
+      const mins = Math.floor(seconds / 60);
+      const secs = seconds % 60;
+      return `${mins}:${secs.toString().padStart(2, '0')}`;
+    }
+
+    function startProgressBar(totalMinutes) {
+      const totalSeconds = totalMinutes * 60;
+      const progressFill = document.getElementById('progressFill');
+      const timerText = document.getElementById('timerText');
+      const progressContainer = document.querySelector('.progress-container');
+
+      if (!totalSeconds || totalSeconds <= 0) {
+        timerText.textContent = 'No duration set yet.';
+        return;
+      }
+
+      let elapsedSeconds = 0;
+
+      const turtle = document.getElementById('turtleOnBar');
+
+      const update = () => {
+        const remaining = Math.max(0, totalSeconds - elapsedSeconds);
+        const percent = Math.min(100, (elapsedSeconds / totalSeconds) * 100);
+        progressFill.style.height = `${percent}%`;
+        if (turtle) {
+          // Position turtle right below the top of the progress fill
+          const turtleBottom = Math.max(0, percent - 8);
+          turtle.style.bottom = `${turtleBottom}%`;
+          // Cycle through turtle sprites based on progress
+          const spriteIndex = Math.floor((percent / 100) * turtleSrcs.length) % turtleSrcs.length;
+          turtle.src = turtleSrcs[spriteIndex];
+        }
+        timerText.textContent = `Time remaining: ${formatTime(remaining)}`;
+      };
+
+      update();
+
+      const interval = setInterval(() => {
+        elapsedSeconds += 1;
+        if (elapsedSeconds > totalSeconds) {
+          clearInterval(interval);
+          return;
+        }
+        update();
+      }, 1000);
+
+      window.addEventListener('beforeunload', () => clearInterval(interval));
+    }
+
+    startProgressBar(durationMinutes);
+  </script>
 </body>
 </html>

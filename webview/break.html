@@ -40,16 +40,16 @@
   </div>
 
   <script>
-    const vscode = acquireVsCodeApi();
+  const vscode = acquireVsCodeApi();
 
-    function pick(minutes) {
-  vscode.postMessage({ command: 'startWater', duration: minutes });
+function pick(minutes) {
+  vscode.postMessage({ command: 'startWater', duration: minutes, breakDuration: minutes });
 }
 
 function pickCustom() {
   const val = parseInt(document.getElementById('custom-minutes').value);
   if (val && val > 0) {
-    vscode.postMessage({ command: 'startWater', duration: val });
+    vscode.postMessage({ command: 'startWater', duration: val, breakDuration: val });
   }
 }
   </script>

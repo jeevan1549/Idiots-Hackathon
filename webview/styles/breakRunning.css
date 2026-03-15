@@ -9,7 +9,7 @@ body {
   color: #a9927d;
   font-family: "Nunito", "Segoe UI", sans-serif;
   display: flex;
-  height: 100vh;       
+  height: 100vh;
   overflow: hidden;
   flex-direction: column;
   align-items: center;
@@ -20,6 +20,7 @@ body {
 
 .animal {
   margin-bottom: 0px;
+  image-rendering: pixelated;
 }
 
 h2 {
@@ -51,7 +52,7 @@ p {
 
 .progress-container {
   width: 48px;
-  height: 60vh; 
+  height: 60vh;
   margin: 0 auto;
   background: rgba(255, 255, 255, 0.05);
   border: 2px solid rgba(154, 210, 203, 0.5);
@@ -74,23 +75,6 @@ p {
   transition: height 0.4s ease;
   z-index: 1;
 }
-@keyframes crawling {
-  0% {
-    content: url("../../sprites/turtle_1.png");
-  }
-  25% {
-    content: url("../../sprites/turtle_2.png");
-  }
-  50% {
-    content: url("../../sprites/turtle_1.png");
-  }
-  75% {
-    content: url("../../sprites/turtle_3.png");
-  }
-  100% {
-    content: url("../../sprites/turtle_1.png");
-  }
-}
 
 .turtle-on-bar {
   position: absolute;
@@ -100,10 +84,69 @@ p {
   width: 54px;
   height: auto;
   z-index: 2;
-  animation: crawling 2s steps(1) infinite;
 }
 
 .timer-text {
+  margin-top: 12px;
+  font-family: 'OCR A Extended', 'OCR A', 'Courier New', monospace;
+  font-size: 14px;
+  color: #c8c8dd;
+}
+
+.objection {
+  font-family: 'OCR A Extended', 'OCR A', 'Courier New', monospace;
+  font-size: 32px;
+  font-weight: 700;
+  color: #f0e8d0;
+  text-align: center;
+  margin-top: 12px;
+  min-height: 48px;
+  border-right: 3px solid #f0e8d0;
+  display: inline-block;
+  animation: blink 0.7s step-end infinite;
+}
+
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+
+.break-btn {
+  background: rgb(21, 20, 23);
+  color: #d1d1d8;
+  border-color: #7a7b8f;
+  border-width: 5px;
+
+  /* border-radius: 12px; */
+  padding: 15px 40px;
+  font-family: 'OCR A Extended', 'OCR A', 'Courier New', monospace;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition:
+    background 0.15s,
+    transform 0.15s;
+  margin-bottom: 14px;
+}
+
+.break-btn:hover {
+  background: rgb(36, 34, 41);
+  color: #a9adcf;
+  transform: translateY(-2px);
+}
+
+.timer-display {
+  margin-top: 24px;
+}
+
+.timer-label {
+  font-size: 12px;
+  color: #9898b0;
+  margin-bottom: 8px;
+  font-family: 'Space Mono', 'Courier New', monospace;
+}
+
+.timer {
   margin-top: 12px;
   font-family: "Space Mono", "Courier New", monospace;
   font-size: 14px;
