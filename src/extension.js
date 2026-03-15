@@ -135,6 +135,8 @@ class BrownBoysViewProvider {
       .replace(/{{cspSource}}/g, webview.cspSource)
       .replace(/{{cat_ICONIC}}/g, spritesPath("cat_ICONIC.png"))
       .replace(/{{cat_icon_whiskers}}/g, spritesPath("cat_icon_whiskers.png"))
+      .replace(/{{bb_hero}}/g, spritesPath("bb_hero.png"))
+      .replace(/{{bb_icon}}/g, spritesPath("bb_icon.png"))
 
       .replace(/{{cat_start_pur_1}}/g, spritesPath("cat_start_pur_1.png"))
       .replace(/{{cat_start_pur_2}}/g, spritesPath("cat_start_pur_2.png"))
@@ -149,12 +151,20 @@ class BrownBoysViewProvider {
       .replace(/{{otter_1}}/g, spritesPath("otter_1.png"))
       .replace(/{{otter_2}}/g, spritesPath("otter_2.png"))
       .replace(/{{otter_3}}/g, spritesPath("otter_3.png"))
+
+      .replace(/{{turtle_icon}}/g, spritesPath("turtle_icon.png"))
+
       .replace(/{{turtle_1}}/g, spritesPath("turtle_1.png"))
       .replace(/{{turtle_2}}/g, spritesPath("turtle_2.png"))
       .replace(/{{turtle_3}}/g, spritesPath("turtle_3.png"));
   }
 
   _getWorkScreen(webview) {
+    const spritesPath = (file) =>
+      webview.asWebviewUri(
+        vscode.Uri.joinPath(this._context.extensionUri, "sprites", file),
+      );
+
     const cssUri = webview.asWebviewUri(
       vscode.Uri.joinPath(
         this._context.extensionUri,
@@ -169,10 +179,16 @@ class BrownBoysViewProvider {
     );
     return html
       .replace(/{{cssUri}}/g, cssUri)
+      .replace(/{{turtle_icon}}/g, spritesPath("turtle_icon.png"))
       .replace(/{{cspSource}}/g, webview.cspSource);
   }
 
   _getBreak(webview) {
+    const spritesPath = (file) =>
+      webview.asWebviewUri(
+        vscode.Uri.joinPath(this._context.extensionUri, "sprites", file),
+      );
+
     const cssUri = webview.asWebviewUri(
       vscode.Uri.joinPath(
         this._context.extensionUri,
@@ -187,6 +203,7 @@ class BrownBoysViewProvider {
     );
     return html
       .replace(/{{cssUri}}/g, cssUri)
+      .replace(/{{cat_icon}}/g, spritesPath("cat_icon_whiskers.png"))
       .replace(/{{cspSource}}/g, webview.cspSource);
   }
 
@@ -215,6 +232,11 @@ class BrownBoysViewProvider {
   }
 
   _get202020(webview) {
+    const spritesPath = (file) =>
+      webview.asWebviewUri(
+        vscode.Uri.joinPath(this._context.extensionUri, "sprites", file),
+      );
+      
     const cssUri = webview.asWebviewUri(
       vscode.Uri.joinPath(
         this._context.extensionUri,
@@ -230,6 +252,7 @@ class BrownBoysViewProvider {
     return html
       .replace(/{{cssUri}}/g, cssUri)
       .replace(/{{cspSource}}/g, webview.cspSource)
+      .replace(/{{clock_icon}}/g, spritesPath("clock20.png"))
       .replace(/{{duration}}/g, this._sessionDuration);
   }
 

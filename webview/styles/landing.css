@@ -25,7 +25,7 @@ nav {
   font-family: "Space Mono", "Courier New", monospace;
   font-weight: 700;
   font-size: 13px;
-  color: #5e503f;
+  color: #3f405e;
   letter-spacing: 0.12em;
 }
 
@@ -33,10 +33,10 @@ nav {
   margin-left: auto;
   font-size: 11px;
   font-family: "Space Mono", "Courier New", monospace;
-  color: #9ad2cb;
-  background: rgba(126, 189, 203, 0.12);
-  border: 0.5px solid rgba(126, 203, 200, 0.3);
-  border-radius: 20px;
+  color: #d29a9a;
+  background: rgba(203, 126, 126, 0.12);
+  border: 0.5px solid rgba(203, 126, 126, 0.3);
+  /* border-radius: 20px; */
   padding: 3px 10px;
 }
 
@@ -51,7 +51,7 @@ nav {
 }
 
 .mascot {
-  width: 200px;
+  width: 250px;
   height: 200px;
   margin-bottom: 28px;
   animation: float 3s ease-in-out infinite;
@@ -104,23 +104,25 @@ p {
   color: #c4b8f0;
   background: rgba(196, 184, 240, 0.1);
   border: 0.5px solid rgba(196, 184, 240, 0.25);
-  border-radius: 20px;
+  /* border-radius: 20px; */
   padding: 6px 14px;
 }
 
 .dot {
   width: 7px;
   height: 7px;
-  border-radius: 50%;
+  /* border-radius: 50%;*/
 }
 
 .btn {
-  background: #9ad2cb;
-  color: #1a1a2e;
-  border: none;
-  border-radius: 12px;
+  background: rgb(21, 20, 23);
+  color: #d1d1d8;
+  border-color: #7a7b8f;
+  border-width: 5px;
+
+  /* border-radius: 12px; */
   padding: 15px 40px;
-  font-family: "Space Mono", "Courier New", monospace;
+  font-family: 'OCR A Extended', 'OCR A', 'Courier New', monospace;
   font-weight: 700;
   font-size: 14px;
   cursor: pointer;
@@ -132,8 +134,8 @@ p {
 }
 
 .btn:hover {
-  background: #22333b;
-  color: #9ad2cb;
+  background: rgb(36, 34, 41);
+  color: #a9adcf;
   transform: translateY(-2px);
 }
 
@@ -141,4 +143,31 @@ p {
   font-size: 11px;
   font-family: "Space Mono", "Courier New", monospace;
   color: #5f5f78;
+}
+
+.fonted {
+  font-family: 'OCR A Extended', 'OCR A', 'Courier New', monospace;
+}
+
+#headertext1 {
+  color: #7a7b8f;
+}
+#headertext2 {
+  color: #8a9a87;
+}
+
+.desc {
+  color: white;
+}
+
+.brand {
+  color: rgb(65, 61, 59);
+}
+
+.tag {
+  color: rgb(218, 129, 129);
+}
+
+.pill {
+  color: white;
 }
