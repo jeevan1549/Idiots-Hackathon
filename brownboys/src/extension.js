@@ -53,33 +53,60 @@ let waterDuraion = null;
         Water break: Every ${waterDuraion} minutes.
         20-20-20: ${msg.twentyTwentyTwenty ? 'on' : 'off'}`
       )
-      panel.dispose();
+      panel.webview.html = getAnimal(panel, context);
       startBreakTimer(sessionDuration, waterDuraion, msg.twentytwentytwenty);
     }
   });
 }
 
+  // const ms = minutes * 60 * 1000;
+
+  // // 20-20-20 reminder every 20 minutes
+  // if (twentyTwentyTwenty) {
+  //   const interval = setInterval(() => {
+  //     vscode.window.showInformationMessage(
+  //       `20-20-20: Look at something 20 meters away for 20 seconds!`
+  //     );
+  //   }, 20 * 60 * 1000);
+
+  //   // Stop the 20-20-20 reminders when session ends
+  //   setTimeout(() => clearInterval(interval), ms);
+  // }
+
+  // // Break reminder when session ends
+  // setTimeout(() => {
+  //   vscode.window.showWarningMessage(
+  //     `Time for a break! Your capybara needs to recharge.`
+  //   );
+  // }, ms);
 function startBreakTimer(minutes, waterDuration, twentyTwentyTwenty) {
-  const ms = minutes * 60 * 1000;
 
-  // 20-20-20 reminder every 20 minutes
-  if (twentyTwentyTwenty) {
-    const interval = setInterval(() => {
-      vscode.window.showInformationMessage(
-        `20-20-20: Look at something 20 meters away for 20 seconds!`
-      );
-    }, 20 * 60 * 1000);
+  var countDownDate = new Date(new Date().getTime() + minutes * 60 * 1000).getTime();
 
-    // Stop the 20-20-20 reminders when session ends
-    setTimeout(() => clearInterval(interval), ms);
-  }
+  var x = setInterval(function() {
+    var now = new Date().getTime();
+    var distance = countDownDate - now;
 
-  // Break reminder when session ends
-  setTimeout(() => {
-    vscode.window.showWarningMessage(
-      `Time for a break! Your capybara needs to recharge.`
-    );
-  }, ms);
+    var hours   = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var mins    = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    console.log(`${hours}h ${mins}m ${seconds}s`);
+
+    if (distance < 0) {
+      clearInterval(x);
+      console.log("Break timer done!");
+
+      if (waterDuration) {
+        console.log(`Water reminder: drink water every ${waterDuration} minutes`);
+      }
+      if (twentyTwentyTwenty) {
+        console.log("20-20-20: look 20ft away for 20 seconds");
+      }
+    }
+  }, 1000);
+
+  return x; 
 }
 
 function getLanding(panel, context) {
@@ -184,6 +211,31 @@ function get202020(panel, context, duration) {
     .replace(/{{cssUri}}/g, cssUri)
     .replace(/{{cspSource}}/g, panel.webview.cspSource)
     .replace(/{{duration}}/g, duration)
+}
+
+function getAnimal(panel, context)
+{
+  const cssUri = panel.webview.asWebviewUri(
+    vscode.Uri.joinPath(
+      context.extensionUri,
+      "webview",
+      "styles",
+      "animal.css"
+    ),
+  );
+
+  let html = fs.readFileSync(
+    path.join(context.extensionPath,
+
+      "webview",
+      "animal.html"),
+
+    "utf8",
+  );
+
+  return html
+    .replace(/{{cssUri}}/g, cssUri)
+    .replace(/{{cspSource}}/g, panel.webview.cspSource)
 }
 
 
