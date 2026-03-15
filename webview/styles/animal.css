@@ -16,7 +16,7 @@ body {
   justify-content: center;
   text-align: center;
   padding: 40px;
-  position: relative; 
+  position: relative;
 }
 
 .animal {
@@ -77,11 +77,21 @@ p {
 }
 
 @keyframes crawling {
-  0%   { content: url("../../sprites/turtle_1.png"); }
-  25%  { content: url("../../sprites/turtle_2.png"); }
-  50%  { content: url("../../sprites/turtle_1.png"); }
-  75%  { content: url("../../sprites/turtle_3.png"); }
-  100% { content: url("../../sprites/turtle_1.png"); }
+  0% {
+    content: url("../../sprites/turtle_1.png");
+  }
+  25% {
+    content: url("../../sprites/turtle_2.png");
+  }
+  50% {
+    content: url("../../sprites/turtle_1.png");
+  }
+  75% {
+    content: url("../../sprites/turtle_3.png");
+  }
+  100% {
+    content: url("../../sprites/turtle_1.png");
+  }
 }
 
 .turtle-on-bar {
@@ -110,7 +120,7 @@ p {
 }
 
 .overlay {
-  position: absolute; 
+  position: absolute;
   bottom: 20px;
   right: 20px;
   background: rgba(10, 9, 8, 0.92);
@@ -126,8 +136,14 @@ p {
 }
 
 @keyframes slideIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .overlay-cat {
@@ -138,10 +154,35 @@ p {
 }
 
 .overlay-text {
-  font-family: 'Space Mono', 'Courier New', monospace;
+  font-family: "Space Mono", "Courier New", monospace;
   font-size: 11px;
   color: #f0e8d0;
   line-height: 1.5;
   margin: 0;
   text-align: left;
+}
+
+.btn {
+  background: rgb(21, 20, 23);
+  color: #d1d1d8;
+  border-color: #7a7b8f;
+  border-width: 5px;
+
+  /* border-radius: 12px; */
+  padding: 15px 40px;
+  font-family: "OCR A Extended", "OCR A", "Courier New", monospace;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition:
+    background 0.15s,
+    transform 0.15s;
+  margin-bottom: 14px;
+}
+
+.btn:hover {
+  background: rgb(36, 34, 41);
+  color: #a9adcf;
+  transform: translateY(-2px);
 }
