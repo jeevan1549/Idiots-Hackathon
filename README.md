@@ -4,9 +4,10 @@ A developer tooling extension built for the Idiots Hackathon.
 
 ## Features
 
-- [Describe what your extension does]
-- [Feature 2]
-- [Feature 3]
+- This extension helps with the developers health.
+- It has a built-in timer for work sessions.
+- Constantly reminds the user to drink plenty of water.
+- Reminds the user every 20 minutes to look away from their screen.
 
 ## Usage
 
