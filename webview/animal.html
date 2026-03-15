@@ -30,9 +30,9 @@
   </div>
 
   <div id="otter-overlay" class="overlay" style="display:none; opacity:0;">
-  <img id="overlay-otter" class="overlay-cat" src="" alt="otter">
-  <p class="overlay-text" id="otter-typewriter"></p>
-</div>
+    <img id="overlay-otter" class="overlay-cat" src="" alt="otter">
+    <p class="overlay-text" id="otter-typewriter"></p>
+  </div>
 
   <script>
     const durationMinutes = {{duration}} || 0;
@@ -86,6 +86,7 @@
 
     startProgressBar(durationMinutes);
 
+    // ── Cat overlay ───────────────────────────────────────────
     const overlay = document.getElementById('overlay');
     const overlayCat = document.getElementById('overlay-cat');
     const overlayTypewriter = document.getElementById('overlay-typewriter');
@@ -102,12 +103,6 @@
       '{{cat_purring_2}}',
       '{{cat_purring_3}}',
       '{{cat_purring_4}}'
-    ];
-
-    const otterFrames = [
-      '{{otter_1}}',
-      '{{otter_2}}',
-      '{{otter_3}}'
     ];
 
     let catSpriteInterval = null;
@@ -142,7 +137,11 @@
       }, 60);
     }
 
+    let catVisible = false;
+
     function showOverlay() {
+      if (catVisible) return;
+      catVisible = true;
       overlay.style.display = 'flex';
       overlay.style.opacity = '1';
       playStartThenPurr();
@@ -151,18 +150,26 @@
           overlay.style.display = 'none';
           overlay.style.opacity = '0';
           clearInterval(catSpriteInterval);
-        }, 20000);
+          catVisible = false;
+        }, 5000);
       });
     }
 
     const twentyTwentyTwenty = {{twentyTwentyTwenty}};
     if (twentyTwentyTwenty) {
-      setInterval(() => showOverlay(), 1 * 60 * 1000); // change first value to 20 after demo
+      setInterval(() => showOverlay(), 1 * 60 * 1000);
     }
 
+    // ── Otter overlay ─────────────────────────────────────────
     const otterOverlay = document.getElementById('otter-overlay');
     const overlayOtter = document.getElementById('overlay-otter');
     const otterTypewriter = document.getElementById('otter-typewriter');
+
+    const otterFrames = [
+      '{{otter_1}}',
+      '{{otter_2}}',
+      '{{otter_3}}'
+    ];
 
     let otterSpriteInterval = null;
 
@@ -175,19 +182,7 @@
       }, 150);
     }
 
-    function showOtterOverlay() {
-      otterOverlay.style.display = 'flex';
-      otterOverlay.style.opacity = '1';
-      playOtterLoop();
-      typewriterOverlay2('Time to drink some water!', () => {
-        setTimeout(() => {
-          otterOverlay.style.display = 'none';
-          otterOverlay.style.opacity = '0';
-          clearInterval(otterSpriteInterval);
-        }, 20000);
-      });
-    }
-
+    // ADDED: typewriterOverlay2 was missing — this was causing the crash
     function typewriterOverlay2(text, callback) {
       otterTypewriter.textContent = '';
       let i = 0;
@@ -201,10 +196,28 @@
       }, 60);
     }
 
-    // ADDED: trigger otter overlay on water interval
+    let otterVisible = false;
+
+    function showOtterOverlay() {
+      if (otterVisible) return;
+      otterVisible = true;
+      otterOverlay.style.display = 'flex';
+      otterOverlay.style.opacity = '1';
+      playOtterLoop();
+
+      typewriterOverlay2('Time to drink some water!', () => {
+        setTimeout(() => {
+          otterOverlay.style.display = 'none';
+          otterOverlay.style.opacity = '0';
+          clearInterval(otterSpriteInterval);
+          otterVisible = false;
+        }, 5000);
+      });
+    }
+
     const waterInterval = {{waterInterval}};
     if (waterInterval && waterInterval > 0) {
-      setInterval(() => showOtterOverlay(), 5 * 1000); // change to waterInterval * 60 * 1000);
+      setInterval(() => showOtterOverlay(), 5 * 1000);
     }
   </script>
 
