@@ -21,7 +21,8 @@
         {
           "type": "webview",
           "id": "brownboys.view",
-          "name": "BrownBoys"
+          "name": "BrownBoys",
+          "icon": "assets/icon.svg"
         }
       ]
     },
