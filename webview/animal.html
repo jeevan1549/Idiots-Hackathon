@@ -1,41 +1,28 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'none';
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'none';
             font-src https://fonts.gstatic.com;
             style-src 'unsafe-inline' {{cspSource}} https://fonts.googleapis.com;
             script-src 'unsafe-inline';
-            img-src {{cspSource}} https: data:;"
-    />
-    <title>BrownBoys</title>
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Space+Mono:wght@400;700&display=swap"
-    />
-    <link rel="stylesheet" href="{{cssUri}}" />
-  </head>
-  <body>
-    <div class="progress-wrapper">
-      <div class="progress-label">Session progress</div>
-      <div class="progress-container" aria-label="Session progress">
-        <div id="progressFill" class="progress-fill"></div>
-        <img
-          id="turtleOnBar"
-          src="{{turtle1}}"
-          alt="turtle"
-          class="turtle-on-bar"
-          width="54"
-          height="54"
-        />
-      </div>
-      <div id="timerText" class="timer-text">Loading…</div>
-      <button class="btn" id="btn">Pause</button>
+            img-src {{cspSource}} https: data:;">
+  <title>BrownBoys</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Space+Mono:wght@400;700&display=swap">
+  <link rel="stylesheet" href="{{cssUri}}">
+</head>
+<body>
+
+  <div class="progress-wrapper">
+    <div class="progress-label">Session progress</div>
+    <div class="progress-container" aria-label="Session progress">
+      <div id="progressFill" class="progress-fill"></div>
+      <img id="turtleOnBar" src="{{turtle1}}" alt="turtle" class="turtle-on-bar" width="54" height="54">
     </div>
     <div id="timerText" class="timer-text">Loading…</div>
+    <button class="btn" id="btn">Pause</button>
   </div>
 
   <div id="overlay" class="overlay" style="display:none; opacity:0;">
@@ -62,18 +49,21 @@
       const totalSeconds = totalMinutes * 60;
       const progressFill = document.getElementById('progressFill');
       const timerText = document.getElementById('timerText');
-      const progressContainer = document.querySelector('.progress-container');
 
       if (!totalSeconds || totalSeconds <= 0) {
         timerText.textContent = 'No duration set yet.';
         return;
       }
 
-      const btn = document.getElementById('btn'); // ← moved to AFTER the null check
-
+      const btn = document.getElementById('btn');
       let elapsedSeconds = 0;
       let timerToggle = true;
       const turtle = document.getElementById('turtleOnBar');
+
+      btn.addEventListener('click', () => {
+        timerToggle = !timerToggle;
+        btn.textContent = timerToggle ? 'Pause' : 'Resume';
+      });
 
       const update = () => {
         const remaining = Math.max(0, totalSeconds - elapsedSeconds);
@@ -91,6 +81,7 @@
       update();
 
       const interval = setInterval(() => {
+        if (!timerToggle) return;
         elapsedSeconds += 1;
         if (elapsedSeconds > totalSeconds) {
           clearInterval(interval);
@@ -170,10 +161,8 @@
           clearInterval(catSpriteInterval);
           catVisible = false;
         }, 5000);
-      btn.addEventListener('click', () => {
-        timerToggle = !timerToggle;
-        btn.textContent = timerToggle ? 'Pause' : 'Resume';
       });
+    }
 
     const twentyTwentyTwenty = {{twentyTwentyTwenty}};
     if (twentyTwentyTwenty) {
@@ -202,18 +191,18 @@
       }, 150);
     }
 
-      function typewriterOverlay2(text, callback) {
-        otterTypewriter.textContent = '';
-        let i = 0;
-        const t = setInterval(() => {
-          otterTypewriter.textContent += text.charAt(i);
-          i++;
-          if (i >= text.length) {
-            clearInterval(t);
-            callback && callback();
-          }
-        }, 60);
-      }
+    function typewriterOverlay2(text, callback) {
+      otterTypewriter.textContent = '';
+      let i = 0;
+      const t = setInterval(() => {
+        otterTypewriter.textContent += text.charAt(i);
+        i++;
+        if (i >= text.length) {
+          clearInterval(t);
+          callback && callback();
+        }
+      }, 60);
+    }
 
     let otterVisible = false;
 
@@ -223,7 +212,6 @@
       otterOverlay.style.display = 'flex';
       otterOverlay.style.opacity = '1';
       playOtterLoop();
-
       typewriterOverlay2('Time to drink some water!', () => {
         setTimeout(() => {
           otterOverlay.style.display = 'none';
@@ -240,104 +228,5 @@
     }
   </script>
 
-            const update = () => {
-              const remaining = Math.max(0, totalSeconds - elapsedSeconds);
-              const percent = Math.min(100, (elapsedSeconds / totalSeconds) * 100);
-              progressFill.style.height = `${percent}%`;
-              if (turtle) {
-                const turtleBottom = Math.max(0, percent - 8);
-                turtle.style.bottom = `${turtleBottom}%`;
-                const spriteIndex = Math.floor((percent / 100) * turtleSrcs.length) % turtleSrcs.length;
-                turtle.src = turtleSrcs[spriteIndex];
-              }
-              timerText.textContent = `Time remaining: ${formatTime(remaining)}`;
-            };
-
-            update();
-
-            const interval = setInterval(() => {
-              if (!timerToggle) return;
-
-              elapsedSeconds += 1;
-              if (elapsedSeconds > totalSeconds) {
-                clearInterval(interval);
-                return;
-              }
-              update();
-            }, 1000);
-
-            window.addEventListener('beforeunload', () => clearInterval(interval));
-          }
-
-          startProgressBar(durationMinutes);
-
-          const overlay = document.getElementById('overlay');
-          const overlayCat = document.getElementById('overlay-cat');
-          const overlayTypewriter = document.getElementById('overlay-typewriter');
-
-          const startFrames = [
-            '{{cat_start_pur_1}}',
-            '{{cat_start_pur_2}}',
-            '{{cat_start_pur_3}}',
-            '{{cat_start_pur_4}}'
-          ];
-
-          const purringFrames = [
-            '{{cat_purring_1}}',
-            '{{cat_purring_2}}',
-            '{{cat_purring_3}}',
-            '{{cat_purring_4}}'
-          ];
-
-          let catSpriteInterval = null;
-
-          function playStartThenPurr() {
-            let i = 0;
-            clearInterval(catSpriteInterval);
-            catSpriteInterval = setInterval(() => {
-              overlayCat.src = startFrames[i];
-              i++;
-              if (i >= startFrames.length) {
-                clearInterval(catSpriteInterval);
-                let j = 0;
-                catSpriteInterval = setInterval(() => {
-                  overlayCat.src = purringFrames[j];
-                  j = (j + 1) % purringFrames.length;
-                }, 150);
-              }
-            }, 120);
-          }
-
-          function typewriterOverlay(text, callback) {
-            overlayTypewriter.textContent = '';
-            let i = 0;
-            const t = setInterval(() => {
-              overlayTypewriter.textContent += text.charAt(i);
-              i++;
-              if (i >= text.length) {
-                clearInterval(t);
-                callback && callback();
-              }
-            }, 60);
-          }
-
-          function showOverlay() {
-            overlay.style.display = 'flex';
-            overlay.style.opacity = '1';
-            playStartThenPurr();
-            typewriterOverlay('Look at something 20 meters away for 20 seconds!', () => {
-              setTimeout(() => {
-                overlay.style.display = 'none';
-                overlay.style.opacity = '0';
-                clearInterval(catSpriteInterval);
-              }, 20000);
-            });
-          }
-
-          const twentyTwentyTwenty = {{twentyTwentyTwenty}};
-          if (twentyTwentyTwenty) {
-            setInterval(() => showOverlay(), 20 * 60 * 1000);
-          }
-    </script>
-  </body>
+</body>
 </html>
