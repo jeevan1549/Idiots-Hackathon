@@ -1,0 +1,39 @@
+{
+  "name": "brownboys",
+  "displayName": "BrownBoys",
+  "description": "Tiny animals that keep you healthy while coding",
+  "version": "0.0.1",
+  "publisher": "BrownBoys",
+  "engines": { "vscode": "^1.80.0" },
+  "activationEvents": ["onStartupFinished"],
+  "main": "./src/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "brownboys-sidebar",
+          "title": "BrownBoys",
+          "icon": "assets/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "brownboys-sidebar": [
+        {
+          "type": "webview",
+          "id": "brownboys.view",
+          "name": "BrownBoys"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "brownboys.start",
+        "title": "BrownBoys: Open"
+      }
+    ]
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.80.0"
+  }
+}

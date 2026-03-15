@@ -1,29 +1,23 @@
-# Idiots-Hackathon
+# Brown Boys - VS Code Extension
 
-## Theme: Devtools
+A developer tooling extension built for the Idiots Hackathon.
 
-### Developer Tooling
+## Features
 
-- anything that you might use while coding
-- developing or deploying
-- something on the side
+- [Describe what your extension does]
+- [Feature 2]
+- [Feature 3]
 
+## Usage
 
-- API tool
-- Pets
-- Anything that can help a dev
+[Explain how to use it]
 
-Website, Desktop App, Terminal App
-____________________________________________________
+## Requirements
 
-### Deploying
+[Any dependencies or prerequisites]
 
-The finished (or not) product must be deployed
+## Release Notes
 
+### 0.0.1
 
-### Members: 
-
-Kian Castro
-Jeevan Jandu
-Bennett Lazarro
-Jemsel Jumapit
+Initial release.

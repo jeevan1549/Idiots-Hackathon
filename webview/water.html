@@ -1,0 +1,56 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'none';
+            font-src https://fonts.gstatic.com;
+            style-src 'unsafe-inline' {{cspSource}} https://fonts.googleapis.com;
+            script-src 'unsafe-inline';
+            img-src {{cspSource}} https: data:;">
+  <title>BrownBoys</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Space+Mono:wght@400;700&display=swap">
+  <link rel="stylesheet" href="{{cssUri}}">
+</head>
+<body>
+    <img src="{{otter_icon}}" alt="otter" class="animal" width="100px" height="100px">
+
+  <h2>How often do you want to drink water?</h2>
+  <p>Your otter will let you know when to drink water.<br>Drink some water when it appears.</p>
+
+
+  <!-- default work session options -->
+  <div class="options">
+    <button class="option-btn" onclick="pick(30)">30 minutes</button>
+    <button class="option-btn" onclick="pick(60)">1 hours</button>
+    <button class="option-btn" onclick="pick(120)">2 hours</button>
+  </div>
+
+  <div class="custom-row">
+    <input
+      class="custom-input"
+      type="number"
+      id="custom-minutes"
+      placeholder="custom"
+      min="30"
+      max="480"
+    >
+    <button class="custom-btn" onclick="pickCustom()">Go</button>
+  </div>
+
+  <script>
+    const vscode = acquireVsCodeApi();
+
+    function pick(minutes) {
+      vscode.postMessage({ command: 'start202020', duration: minutes });
+    }
+
+    function pickCustom() {
+      const val = parseInt(document.getElementById('custom-minutes').value);
+      if (val && val > 30) {
+        pick(val);
+      }
+    }
+  </script>
+
+</body>
+</html>

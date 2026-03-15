@@ -1,0 +1,71 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'none';
+            font-src https://fonts.gstatic.com;
+            style-src 'unsafe-inline' {{cspSource}} https://fonts.googleapis.com;
+            script-src 'unsafe-inline';
+            img-src {{cspSource}} https: data:;">
+  <title>BrownBoys - 20-20-20</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Space+Mono:wght@400;700&display=swap">
+  <link rel="stylesheet" href="{{cssUri}}">
+</head>
+<body>
+    <span class="animal">🦫</span>
+
+  <h2>Do you want to activate the 20-20-20 Rule?</h2>
+  <p>20-20-20 rule:
+    <br>Every 20 minutes minutes, look at something that's 20 meters away for 20 seconds
+    <br>A cat will appear when it's time to look away 
+</p>
+
+  <div class="options">
+    <button id="yes-btn" class="option-btn">Yes</button>
+    <button id="no-btn" class="option-btn">No</button>
+  </div>
+
+  <div class="custom-row">
+    <button id="start-btn" class="start-btn">Start Session</button>
+  </div>
+
+  <script>
+    const vscode = acquireVsCodeApi();
+
+    let selected = null;
+
+    const yesBtn = document.getElementById('yes-btn');
+    const noBtn = document.getElementById('no-btn');
+    const startBtn = document.getElementById('start-btn');
+
+    function selectOption(choice) {
+    selected = choice;
+
+    // Reset both buttons
+    yesBtn.classList.remove('selected');
+    noBtn.classList.remove('selected');
+
+    // Highlight the chosen one
+    if (choice === 'yes') {
+        yesBtn.classList.add('selected');
+    } else {
+        noBtn.classList.add('selected');
+    }
+
+    // Activate the start button
+    startBtn.classList.add('active');
+    }
+
+    yesBtn.addEventListener('click', () => selectOption('yes'));
+    noBtn.addEventListener('click', () => selectOption('no'));
+
+    startBtn.addEventListener('click', () => {
+    if (!selected){
+        return; // do nothing if nothing picked
+    } 
+    vscode.postMessage({ command: 'startSession', twentyTwentyTwenty: selected === 'yes' });
+    });
+</script>
+
+</body>
+</html>

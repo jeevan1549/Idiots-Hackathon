@@ -1,0 +1,109 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #1a1a2e;
+  color: #f0e8d0;
+  font-family: 'Nunito', 'Segoe UI', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px;
+}
+
+.animal {
+  font-size: 90px;
+  margin-bottom: 24px;
+  animation: bounce 1.2s ease-in-out infinite;
+  display: block;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50%       { transform: translateY(-14px) rotate(3deg); }
+}
+
+h2 {
+  font-size: 26px;
+  font-weight: 800;
+  color: #f0e8d0;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 14px;
+  color: #9898b0;
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+
+.options {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.option-btn {
+  background: transparent;
+  border: 1px solid rgba(126,203,161,0.4);
+  color: #7ecba1;
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-family: 'Space Mono', 'Courier New', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.15s, border-color 0.15s;
+}
+
+.option-btn:hover {
+  background: rgba(126,203,161,0.12);
+  border-color: #7ecba1;
+  transform: translateY(-2px);
+}
+
+.custom-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* Default start button - dimmed until option picked */
+#start-btn {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transition: opacity 0.2s, background 0.2s, transform 0.15s;
+  background: #7ecba1;
+  color: #1a1a2e;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-family: 'Space Mono', 'Courier New', monospace;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* Start button becomes fully active after picking */
+#start-btn.active {
+  opacity: 1;
+  cursor: pointer;
+  background: #7ecba1;
+  color: #1a1a2e;
+}
+
+#start-btn.active:hover {
+  background: #9edcb8;
+  transform: translateY(-2px);
+}
+
+/* Selected state for Yes / No buttons */
+.option-btn.selected {
+  background: rgba(126, 203, 161, 0.15);
+  border-color: #7ecba1;
+  color: #7ecba1;
+}
