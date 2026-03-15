@@ -1,11 +1,13 @@
-
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 body {
-  background: #1a1a2e;
-  color: #f0e8d0;
-  font-family: 'Nunito', 'Segoe UI', sans-serif;
+  background: #0a0908;
+  color: #a9927d;
+  font-family: "Nunito", "Segoe UI", sans-serif;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -23,14 +25,19 @@ body {
 }
 
 @keyframes bounce {
-  0%, 100% { transform: translateY(0) rotate(-3deg); }
-  50%       { transform: translateY(-14px) rotate(3deg); }
+  0%,
+  100% {
+    transform: translateY(0) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(-14px) rotate(3deg);
+  }
 }
 
 h2 {
   font-size: 26px;
   font-weight: 800;
-  color: #f0e8d0;
+  color: #a9927d;
   margin-bottom: 10px;
 }
 
@@ -51,24 +58,29 @@ p {
 
 .option-btn {
   background: transparent;
-  border: 1px solid rgba(126,203,161,0.4);
-  color: #7ecba1;
+  border: 1px solid rgba(126, 203, 161, 0.4);
+  color: #9ad2cb;
   padding: 14px 28px;
   border-radius: 12px;
-  font-family: 'Space Mono', 'Courier New', monospace;
+  font-family: "Space Mono", "Courier New", monospace;
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
-  transition: background 0.15s, transform 0.15s, border-color 0.15s;
+  transition:
+    background 0.15s,
+    transform 0.15s,
+    border-color 0.15s;
 }
 
 .option-btn:hover {
-  background: rgba(126,203,161,0.12);
-  border-color: #7ecba1;
+  background: #22333b;
+  border-color: #9ad2cb;
   transform: translateY(-2px);
 }
 
-.option-btn:active { transform: scale(0.97); }
+.option-btn:active {
+  transform: scale(0.97);
+}
 
 .custom-row {
   display: flex;
@@ -78,31 +90,35 @@ p {
 }
 
 .custom-input {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.1);
-  color: #f0e8d0;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #a9927d;
   padding: 12px 16px;
   border-radius: 10px;
-  font-family: 'Space Mono', 'Courier New', monospace;
+  font-family: "Space Mono", "Courier New", monospace;
   font-size: 14px;
   width: 110px;
   text-align: center;
   outline: none;
 }
 
-.custom-input:focus { border-color: rgba(126,203,161,0.5); }
+.custom-input:focus {
+  border-color: #22333b;
+}
 
 .custom-btn {
-  background: #7ecba1;
-  color: #1a1a2e;
+  background: #9ad2cb;
+  color: #0a0908;
   border: none;
   padding: 12px 20px;
   border-radius: 10px;
-  font-family: 'Space Mono', 'Courier New', monospace;
+  font-family: "Space Mono", "Courier New", monospace;
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
   transition: background 0.15s;
 }
 
-.custom-btn:hover { background: #9edcb8; }
+.custom-btn:hover {
+  background: #9ad2cb;
+}

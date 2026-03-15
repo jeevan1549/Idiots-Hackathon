@@ -1,4 +1,3 @@
-
 const vscode = require("vscode");
 const fs = require("fs");
 const path = require("path");
@@ -7,7 +6,7 @@ function activate(context) {
   const provider = new BrownBoysViewProvider(context);
 
   context.subscriptions.push(
-    vscode.window.registerWebviewViewProvider("brownboys.view", provider)
+    vscode.window.registerWebviewViewProvider("brownboys.view", provider),
   );
 }
 
@@ -27,7 +26,7 @@ class BrownBoysViewProvider {
       localResourceRoots: [
         vscode.Uri.joinPath(this._context.extensionUri, "webview"),
         vscode.Uri.joinPath(this._context.extensionUri, "assets"),
-        vscode.Uri.joinPath(this._context.extensionUri, "sprites")
+        vscode.Uri.joinPath(this._context.extensionUri, "sprites"),
       ],
     };
 
@@ -56,12 +55,12 @@ class BrownBoysViewProvider {
 
       if (msg.command === "startSession") {
         vscode.window.showInformationMessage(
-          `Working for ${this._sessionDuration} min. Water every ${this._waterInterval} min. 20-20-20: ${msg.twentyTwentyTwenty ? 'on' : 'off'}`
+          `Working for ${this._sessionDuration} min. Water every ${this._waterInterval} min. 20-20-20: ${msg.twentyTwentyTwenty ? "on" : "off"}`,
         );
         this._startBreakTimer(
           this._sessionDuration,
           this._waterInterval,
-          msg.twentyTwentyTwenty
+          msg.twentyTwentyTwenty,
         );
         webviewView.webview.html = this._getSessionRunning(webviewView.webview);
       }
@@ -72,27 +71,33 @@ class BrownBoysViewProvider {
     const ms = minutes * 60 * 1000;
 
     // Water reminder using the user's chosen interval
-    const waterTimer = setInterval(() => {
-      vscode.window.showInformationMessage(
-        `BrownBoys: Time to drink some water!`
-      );
-    }, waterInterval * 60 * 1000);
+    const waterTimer = setInterval(
+      () => {
+        vscode.window.showInformationMessage(
+          `BrownBoys: Time to drink some water!`,
+        );
+      },
+      waterInterval * 60 * 1000,
+    );
     setTimeout(() => clearInterval(waterTimer), ms);
 
     // 20-20-20 reminder every 20 minutes
     if (twentyTwentyTwenty) {
-      const eyeTimer = setInterval(() => {
-        vscode.window.showInformationMessage(
-          `20-20-20: Look at something 20 meters away for 20 seconds!`
-        );
-      }, 20 * 60 * 1000);
+      const eyeTimer = setInterval(
+        () => {
+          vscode.window.showInformationMessage(
+            `20-20-20: Look at something 20 meters away for 20 seconds!`,
+          );
+        },
+        20 * 60 * 1000,
+      );
       setTimeout(() => clearInterval(eyeTimer), ms);
     }
 
     // Break reminder when session ends
     setTimeout(() => {
       vscode.window.showWarningMessage(
-        `Time for a break! Your capybara needs to recharge.`
+        `Time for a break! Your capybara needs to recharge.`,
       );
       // Go back to landing when session ends
       if (this._view) {
@@ -104,54 +109,63 @@ class BrownBoysViewProvider {
   // ── HTML loaders ──────────────────────────────────────
 
   _getLanding(webview) {
-    const spritesPath = (file) => webview.asWebviewUri(
-        vscode.Uri.joinPath(this._context.extensionUri, "sprites", file)
-    );
-    
+    const spritesPath = (file) =>
+      webview.asWebviewUri(
+        vscode.Uri.joinPath(this._context.extensionUri, "sprites", file),
+      );
+
     const cssUri = webview.asWebviewUri(
       vscode.Uri.joinPath(
-        this._context.extensionUri, "webview", "styles", "landing.css"
-      )
+        this._context.extensionUri,
+        "webview",
+        "styles",
+        "landing.css",
+      ),
     );
 
     let html = fs.readFileSync(
-      path.join(this._context.extensionPath, "webview", "landing.html"), "utf8"
+      path.join(this._context.extensionPath, "webview", "landing.html"),
+      "utf8",
     );
 
     return html
       .replace(/{{cssUri}}/g, cssUri)
       .replace(/{{cspSource}}/g, webview.cspSource)
-        .replace(/{{cssUri}}/g, cssUri)
-        .replace(/{{cspSource}}/g, webview.cspSource)
-        .replace(/{{cat_ICONIC}}/g, spritesPath("cat_ICONIC.png"))
-        .replace(/{{cat_icon_whiskers}}/g, spritesPath("cat_icon_whiskers.png"))
+      .replace(/{{cssUri}}/g, cssUri)
+      .replace(/{{cspSource}}/g, webview.cspSource)
+      .replace(/{{cat_ICONIC}}/g, spritesPath("cat_ICONIC.png"))
+      .replace(/{{cat_icon_whiskers}}/g, spritesPath("cat_icon_whiskers.png"))
 
-        .replace(/{{cat_start_pur_1}}/g, spritesPath("cat_start_pur_1.png"))
-        .replace(/{{cat_start_pur_2}}/g, spritesPath("cat_start_pur_2.png"))
-        .replace(/{{cat_start_pur_3}}/g, spritesPath("cat_start_pur_3.png"))
-        .replace(/{{cat_start_pur_4}}/g, spritesPath("cat_start_pur_4.png"))
+      .replace(/{{cat_start_pur_1}}/g, spritesPath("cat_start_pur_1.png"))
+      .replace(/{{cat_start_pur_2}}/g, spritesPath("cat_start_pur_2.png"))
+      .replace(/{{cat_start_pur_3}}/g, spritesPath("cat_start_pur_3.png"))
+      .replace(/{{cat_start_pur_4}}/g, spritesPath("cat_start_pur_4.png"))
 
-        .replace(/{{cat_purring_1}}/g, spritesPath("cat_purring_1.png"))
-        .replace(/{{cat_purring_2}}/g, spritesPath("cat_purring_2.png"))
-        .replace(/{{cat_purring_3}}/g, spritesPath("cat_purring_3.png"))
-        .replace(/{{cat_purring_4}}/g, spritesPath("cat_purring_4.png"))
+      .replace(/{{cat_purring_1}}/g, spritesPath("cat_purring_1.png"))
+      .replace(/{{cat_purring_2}}/g, spritesPath("cat_purring_2.png"))
+      .replace(/{{cat_purring_3}}/g, spritesPath("cat_purring_3.png"))
+      .replace(/{{cat_purring_4}}/g, spritesPath("cat_purring_4.png"))
 
-        .replace(/{{otter_1}}/g, spritesPath("otter_1.png"))
-        .replace(/{{otter_2}}/g, spritesPath("otter_2.png"))
-        .replace(/{{otter_3}}/g, spritesPath("otter_3.png"))
-        .replace(/{{turtle_1}}/g, spritesPath("turtle_1.png"))
-        .replace(/{{turtle_2}}/g, spritesPath("turtle_2.png"))  
-        .replace(/{{turtle_3}}/g, spritesPath("turtle_3.png"));
+      .replace(/{{otter_1}}/g, spritesPath("otter_1.png"))
+      .replace(/{{otter_2}}/g, spritesPath("otter_2.png"))
+      .replace(/{{otter_3}}/g, spritesPath("otter_3.png"))
+      .replace(/{{turtle_1}}/g, spritesPath("turtle_1.png"))
+      .replace(/{{turtle_2}}/g, spritesPath("turtle_2.png"))
+      .replace(/{{turtle_3}}/g, spritesPath("turtle_3.png"));
   }
 
   _getWorkScreen(webview) {
     const cssUri = webview.asWebviewUri(
       vscode.Uri.joinPath(
-        this._context.extensionUri, "webview", "styles", "workSession.css"
-      )
+        this._context.extensionUri,
+        "webview",
+        "styles",
+        "workSession.css",
+      ),
     );
     let html = fs.readFileSync(
-      path.join(this._context.extensionPath, "webview", "workSession.html"), "utf8"
+      path.join(this._context.extensionPath, "webview", "workSession.html"),
+      "utf8",
     );
     return html
       .replace(/{{cssUri}}/g, cssUri)
@@ -161,11 +175,15 @@ class BrownBoysViewProvider {
   _getBreak(webview) {
     const cssUri = webview.asWebviewUri(
       vscode.Uri.joinPath(
-        this._context.extensionUri, "webview", "styles", "break.css"
-      )
+        this._context.extensionUri,
+        "webview",
+        "styles",
+        "break.css",
+      ),
     );
     let html = fs.readFileSync(
-      path.join(this._context.extensionPath, "webview", "break.html"), "utf8"
+      path.join(this._context.extensionPath, "webview", "break.html"),
+      "utf8",
     );
     return html
       .replace(/{{cssUri}}/g, cssUri)
@@ -173,17 +191,22 @@ class BrownBoysViewProvider {
   }
 
   _getWater(webview) {
-    const spritesPath = (file) => webview.asWebviewUri(
-        vscode.Uri.joinPath(this._context.extensionUri, "sprites", file)
-    );
+    const spritesPath = (file) =>
+      webview.asWebviewUri(
+        vscode.Uri.joinPath(this._context.extensionUri, "sprites", file),
+      );
 
     const cssUri = webview.asWebviewUri(
       vscode.Uri.joinPath(
-        this._context.extensionUri, "webview", "styles", "style.css"
-      )
+        this._context.extensionUri,
+        "webview",
+        "styles",
+        "water.css",
+      ),
     );
     let html = fs.readFileSync(
-      path.join(this._context.extensionPath, "webview", "water.html"), "utf8"
+      path.join(this._context.extensionPath, "webview", "water.html"),
+      "utf8",
     );
     return html
       .replace(/{{cssUri}}/g, cssUri)
@@ -194,11 +217,15 @@ class BrownBoysViewProvider {
   _get202020(webview) {
     const cssUri = webview.asWebviewUri(
       vscode.Uri.joinPath(
-        this._context.extensionUri, "webview", "styles", "202020.css"
-      )
+        this._context.extensionUri,
+        "webview",
+        "styles",
+        "202020.css",
+      ),
     );
     let html = fs.readFileSync(
-      path.join(this._context.extensionPath, "webview", "202020.html"), "utf8"
+      path.join(this._context.extensionPath, "webview", "202020.html"),
+      "utf8",
     );
     return html
       .replace(/{{cssUri}}/g, cssUri)
@@ -212,22 +239,24 @@ class BrownBoysViewProvider {
         this._context.extensionUri,
         "webview",
         "styles",
-        "animal.css"
+        "animal.css",
       ),
     );
 
     let html = fs.readFileSync(
-      path.join(this._context.extensionPath,
+      path.join(
+        this._context.extensionPath,
 
         "webview",
-        "animal.html"),
+        "animal.html",
+      ),
 
       "utf8",
     );
 
     return html
-        .replace(/{{cssUri}}/g, cssUri)
-        .replace(/{{cspSource}}/g, webview.cspSource)
+      .replace(/{{cssUri}}/g, cssUri)
+      .replace(/{{cspSource}}/g, webview.cspSource);
   }
 }
 
