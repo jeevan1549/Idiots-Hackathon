@@ -16,14 +16,14 @@
   <img src="{{cat_icon}}" alt="cat_icon" class="animal" width="150px" height="150px">
 
   <h2>How long will be your breaks?</h2>
-  <p>Your break animal will deflate over time.<br>When it's flat, it's time to rest.</p>
+  <p>When you finish a work session<br>take a break!</p>
 
 
   <!-- default work session option -->
   <div class="options">
-    <button class="option-btn" onclick="pick(5)">5 min</button>
-    <button class="option-btn" onclick="pick(10)">10 min</button>
-    <button class="option-btn" onclick="pick(15)">15 min</button>
+    <button class="option-btn" onclick="pick(5)">5 mins</button>
+    <button class="option-btn" onclick="pick(10)">10 mins</button>
+    <button class="option-btn" onclick="pick(15)">15 mins</button>
   </div>
 
 
@@ -40,16 +40,16 @@
   </div>
 
   <script>
-    const vscode = acquireVsCodeApi();
+  const vscode = acquireVsCodeApi();
 
-    function pick(minutes) {
-  vscode.postMessage({ command: 'startWater', duration: minutes });
+function pick(minutes) {
+  vscode.postMessage({ command: 'startWater', duration: minutes, breakDuration: minutes });
 }
 
 function pickCustom() {
   const val = parseInt(document.getElementById('custom-minutes').value);
   if (val && val > 0) {
-    vscode.postMessage({ command: 'startWater', duration: val });
+    vscode.postMessage({ command: 'startWater', duration: val, breakDuration: val });
   }
 }
   </script>

@@ -31,7 +31,7 @@
       type="number"
       id="custom-minutes"
       placeholder="custom"
-      min="30"
+      min="1"
       max="480"
     >
     <button class="custom-btn" onclick="pickCustom()">Go</button>
@@ -46,7 +46,7 @@
 
     function pickCustom() {
       const val = parseInt(document.getElementById('custom-minutes').value);
-      if (val && val > 30) {
+      if (val && val > 0) {
         pick(val);
       }
     }

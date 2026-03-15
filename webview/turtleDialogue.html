@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'none';
+             font-src https://fonts.gstatic.com;
+             style-src 'unsafe-inline' {{cspSource}} https://fonts.googleapis.com;
+             script-src 'unsafe-inline';
+             img-src {{cspSource}} https: data:;">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Space+Mono:wght@400;700&display=swap">
+  <link rel="stylesheet" href="{{cssUri}}">
+</head>
+<body>
+
+  <img src="{{turtle_icon}}" alt="turtle" class="animal" width="150px" height="150px">
+  <p class="objection" id="typewriter"></p>
+
+  <button id="break-btn" class="break-btn">Start Break</button>
+
+  <div id="timer-display" class="timer-display" style="display:none;">
+    <p class="timer-label">Break time remaining</p>
+    <p class="timer" id="timer">00:00</p>
+  </div>
+
+  <script>
+    const vscode = acquireVsCodeApi();
+    const breakSeconds = {{breakSeconds}};
+
+    const text = "Time to take a break!";
+    const el = document.getElementById('typewriter');
+    let i = 0;
+
+    function type() {
+      if (i < text.length) {
+        el.textContent += text.charAt(i);
+        i++;
+        setTimeout(type, 100);
+      }
+    }
+    type();
+
+    const breakBtn = document.getElementById('break-btn');
+    const timerDisplay = document.getElementById('timer-display');
+    const timerEl = document.getElementById('timer');
+    let timerInterval = null;
+
+    breakBtn.addEventListener('click', () => {
+      breakBtn.style.display = 'none';
+      timerDisplay.style.display = 'block';
+      startTimer(breakSeconds);
+    });
+
+    function startTimer(seconds) {
+      let remaining = seconds;
+      updateDisplay(remaining);
+
+      timerInterval = setInterval(() => {
+        remaining--;
+        updateDisplay(remaining);
+
+        if (remaining <= 0) {
+          clearInterval(timerInterval);
+          timerEl.textContent = 'Break over!';
+          vscode.postMessage({ command: 'breakDone' });
+        }
+      }, 1000);
+    }
+
+    function updateDisplay(seconds) {
+      const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+      const s = (seconds % 60).toString().padStart(2, '0');
+      timerEl.textContent = `${m}:${s}`;
+    }
+  </script>
+
+</body>
+</html>
