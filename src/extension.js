@@ -1,246 +1,3 @@
-// const vscode = require("vscode");
-// const fs = require("fs");
-// const path = require("path");
-
-// // This starts the extension
-// function activate(context) {
-//   openPanel(context);
-
-//   context.subscriptions.push(
-//     vscode.commands.registerCommand("brownboys.start", () =>
-//       openPanel(context),
-//     ),
-//   );
-// }
-
-// // This opens the extension window; opens whatever's in webview/assests folder.
-// function openPanel(context) {
-//   const panel = vscode.window.createWebviewPanel(
-//     "brownboys",
-//     "BrownBoys",
-//     vscode.ViewColumn.One,
-//     {
-//       enableScripts: true,
-//       localResourceRoots: [
-//         vscode.Uri.joinPath(context.extensionUri, "webview"),
-//         vscode.Uri.joinPath(context.extensionUri, "assets"), // This folder has nothing in it (as of 03/14/26)
-//       ],
-//     },
-//   );
-
-// panel.webview.html = getLanding(panel, context);
-
-// let sessionDuration = null;
-// let waterDuraion = null;
-  
-//   panel.webview.onDidReceiveMessage((msg) => {
-//     if (msg.command === "getStarted") {
-//       panel.webview.html = getBreakScreen(panel, context);
-//     }
-
-//     // Message appears at the bottom of your screen when your work session starts
-//     if (msg.command === "startWater") {
-//       sessionDuration = msg.duration;
-//       panel.webview.html = getWater(panel, context);
-//     }
-//     if (msg.command === "start202020") {
-//       waterDuraion = msg.duration
-//       panel.webview.html = get202020(panel, context, sessionDuration);
-//     }
-//     if(msg.command === "startSession"){
-//       vscode.window.showInformationMessage(
-//         `Working for ${sessionDuration} minutes. Your capybara is watching!
-//         Water break: Every ${waterDuraion} minutes.
-//         20-20-20: ${msg.twentyTwentyTwenty ? 'on' : 'off'}`
-//       )
-//       panel.webview.html = getAnimal(panel, context);
-//       startBreakTimer(sessionDuration, waterDuraion, msg.twentytwentytwenty);
-//     }
-//   });
-// }
-
-//   // const ms = minutes * 60 * 1000;
-
-//   // // 20-20-20 reminder every 20 minutes
-//   // if (twentyTwentyTwenty) {
-//   //   const interval = setInterval(() => {
-//   //     vscode.window.showInformationMessage(
-//   //       `20-20-20: Look at something 20 meters away for 20 seconds!`
-//   //     );
-//   //   }, 20 * 60 * 1000);
-
-//   //   // Stop the 20-20-20 reminders when session ends
-//   //   setTimeout(() => clearInterval(interval), ms);
-//   // }
-
-//   // // Break reminder when session ends
-//   // setTimeout(() => {
-//   //   vscode.window.showWarningMessage(
-//   //     `Time for a break! Your capybara needs to recharge.`
-//   //   );
-//   // }, ms);
-// function startBreakTimer(minutes, waterDuration, twentyTwentyTwenty) {
-
-//   var countDownDate = new Date(new Date().getTime() + minutes * 60 * 1000).getTime();
-
-//   var x = setInterval(function() {
-//     var now = new Date().getTime();
-//     var distance = countDownDate - now;
-
-//     var hours   = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-//     var mins    = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-//     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-//     console.log(`${hours}h ${mins}m ${seconds}s`);
-
-//     if (distance < 0) {
-//       clearInterval(x);
-//       console.log("Break timer done!");
-
-//       if (waterDuration) {
-//         console.log(`Water reminder: drink water every ${waterDuration} minutes`);
-//       }
-//       if (twentyTwentyTwenty) {
-//         console.log("20-20-20: look 20ft away for 20 seconds");
-//       }
-//     }
-//   }, 1000);
-
-//   return x; 
-// }
-
-// function getLanding(panel, context) {
-//   // Css url path
-//   const cssUri = panel.webview.asWebviewUri(
-//     vscode.Uri.joinPath(
-//       context.extensionUri,
-//       "webview",
-//       "styles",
-//       "landing.css",
-//     ),
-//   );
-
-//   let html = fs.readFileSync(
-//     path.join(context.extensionPath, 
-
-//       "webview", 
-//       "landing.html"), // Opens /vebview/landing.html
-
-//     "utf8",
-//   );
-
-//   return html
-//     .replace(/{{cssUri}}/g, cssUri)
-//     .replace(/{{cspSource}}/g, panel.webview.cspSource);
-// }
-
-// function getBreakScreen(panel, context) {
-//   const cssUri = panel.webview.asWebviewUri(
-//     vscode.Uri.joinPath(context.extensionUri, 
-
-//       "webview", 
-//       "styles", 
-//       "break.css"
-    
-//     ),
-
-//   );
-
-//   let html = fs.readFileSync(
-//     path.join(context.extensionPath, 
-//       "webview",
-//       "break.html"
-    
-//     ),
-
-//     "utf8",
-//   );
-
-//   return html
-//     .replace(/{{cssUri}}/g, cssUri)
-//     .replace(/{{cspSource}}/g, panel.webview.cspSource);
-// }
-
-// function getWater(panel, context, water) {
-//   // Css url path
-//   const cssUri = panel.webview.asWebviewUri(
-//     vscode.Uri.joinPath(
-//       context.extensionUri,
-//       "webview",
-//       "styles",
-//       "style.css",
-//     ),
-//   );
-
-//   let html = fs.readFileSync(
-//     path.join(context.extensionPath, 
-
-//       "webview", 
-//       "water.html"), // Opens /webview/water.html
-
-//     "utf8",
-//   );
-
-//   return html
-//     .replace(/{{cssUri}}/g, cssUri)
-//     .replace(/{{cspSource}}/g, panel.webview.cspSource)
-//     .replace(/{{water}}/g, water)
-// }
-
-// function get202020(panel, context, duration) {
-//   // Css url path
-//   const cssUri = panel.webview.asWebviewUri(
-//     vscode.Uri.joinPath(
-//       context.extensionUri,
-//       "webview",
-//       "styles",
-//       "202020.css",
-//     ),
-//   );
-
-//   let html = fs.readFileSync(
-//     path.join(context.extensionPath, 
-
-//       "webview", 
-//       "202020.html"), // Opens /webview/202020.html
-
-//     "utf8",
-//   );
-
-//   return html
-//     .replace(/{{cssUri}}/g, cssUri)
-//     .replace(/{{cspSource}}/g, panel.webview.cspSource)
-//     .replace(/{{duration}}/g, duration)
-// }
-
-// function getAnimal(panel, context)
-// {
-//   const cssUri = panel.webview.asWebviewUri(
-//     vscode.Uri.joinPath(
-//       context.extensionUri,
-//       "webview",
-//       "styles",
-//       "animal.css"
-//     ),
-//   );
-
-//   let html = fs.readFileSync(
-//     path.join(context.extensionPath,
-
-//       "webview",
-//       "animal.html"),
-
-//     "utf8",
-//   );
-
-//   return html
-//     .replace(/{{cssUri}}/g, cssUri)
-//     .replace(/{{cspSource}}/g, panel.webview.cspSource)
-// }
-
-
-// module.exports = { activate };
-
 
 const vscode = require("vscode");
 const fs = require("fs");
@@ -280,7 +37,11 @@ class BrownBoysViewProvider {
     // Handle messages
     webviewView.webview.onDidReceiveMessage((msg) => {
       if (msg.command === "getStarted") {
-        webviewView.webview.html = this._getBreakScreen(webviewView.webview);
+        webviewView.webview.html = this._getWorkScreen(webviewView.webview);
+      }
+      if (msg.command === "startBreak") {
+        this._sessionDuration = msg.duration;
+        webviewView.webview.html = this._getBreak(webviewView.webview);
       }
 
       if (msg.command === "startWater") {
@@ -383,7 +144,21 @@ class BrownBoysViewProvider {
         .replace(/{{turtle_3}}/g, spritesPath("turtle_3.png"));
   }
 
-  _getBreakScreen(webview) {
+  _getWorkScreen(webview) {
+    const cssUri = webview.asWebviewUri(
+      vscode.Uri.joinPath(
+        this._context.extensionUri, "webview", "styles", "workSession.css"
+      )
+    );
+    let html = fs.readFileSync(
+      path.join(this._context.extensionPath, "webview", "workSession.html"), "utf8"
+    );
+    return html
+      .replace(/{{cssUri}}/g, cssUri)
+      .replace(/{{cspSource}}/g, webview.cspSource);
+  }
+
+  _getBreak(webview) {
     const cssUri = webview.asWebviewUri(
       vscode.Uri.joinPath(
         this._context.extensionUri, "webview", "styles", "break.css"
