@@ -24,11 +24,15 @@
     <div id="timerText" class="timer-text">Loading…</div>
   </div>
 
-  <!-- NO CHANGE: overlay div was already added previously -->
   <div id="overlay" class="overlay" style="display:none; opacity:0;">
     <img id="overlay-cat" class="overlay-cat" src="" alt="cat">
     <p class="overlay-text" id="overlay-typewriter"></p>
   </div>
+
+  <div id="otter-overlay" class="overlay" style="display:none; opacity:0;">
+  <img id="overlay-otter" class="overlay-cat" src="" alt="otter">
+  <p class="overlay-text" id="otter-typewriter"></p>
+</div>
 
   <script>
     const durationMinutes = {{duration}} || 0;
@@ -100,6 +104,12 @@
       '{{cat_purring_4}}'
     ];
 
+    const otterFrames = [
+      '{{otter_1}}',
+      '{{otter_2}}',
+      '{{otter_3}}'
+    ];
+
     let catSpriteInterval = null;
 
     function playStartThenPurr() {
@@ -147,7 +157,54 @@
 
     const twentyTwentyTwenty = {{twentyTwentyTwenty}};
     if (twentyTwentyTwenty) {
-      setInterval(() => showOverlay(), 20 * 60 * 1000);
+      setInterval(() => showOverlay(), 1 * 60 * 1000); // change first value to 20 after demo
+    }
+
+    const otterOverlay = document.getElementById('otter-overlay');
+    const overlayOtter = document.getElementById('overlay-otter');
+    const otterTypewriter = document.getElementById('otter-typewriter');
+
+    let otterSpriteInterval = null;
+
+    function playOtterLoop() {
+      let i = 0;
+      clearInterval(otterSpriteInterval);
+      otterSpriteInterval = setInterval(() => {
+        overlayOtter.src = otterFrames[i];
+        i = (i + 1) % otterFrames.length;
+      }, 150);
+    }
+
+    function showOtterOverlay() {
+      otterOverlay.style.display = 'flex';
+      otterOverlay.style.opacity = '1';
+      playOtterLoop();
+      typewriterOverlay2('Time to drink some water!', () => {
+        setTimeout(() => {
+          otterOverlay.style.display = 'none';
+          otterOverlay.style.opacity = '0';
+          clearInterval(otterSpriteInterval);
+        }, 20000);
+      });
+    }
+
+    function typewriterOverlay2(text, callback) {
+      otterTypewriter.textContent = '';
+      let i = 0;
+      const t = setInterval(() => {
+        otterTypewriter.textContent += text.charAt(i);
+        i++;
+        if (i >= text.length) {
+          clearInterval(t);
+          callback && callback();
+        }
+      }, 60);
+    }
+
+    // ADDED: trigger otter overlay on water interval
+    const waterInterval = {{waterInterval}};
+    if (waterInterval && waterInterval > 0) {
+      setInterval(() => showOtterOverlay(), 5 * 1000); // change to waterInterval * 60 * 1000);
     }
   </script>
 
