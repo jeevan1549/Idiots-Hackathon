@@ -7,6 +7,24 @@
   "activationEvents": ["onStartupFinished"],
   "main": "./src/extension.js",
   "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "brownboys-sidebar",
+          "title": "BrownBoys",
+          "icon": "assets/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "brownboys-sidebar": [
+        {
+          "type": "webview",
+          "id": "brownboys.view",
+          "name": "BrownBoys"
+        }
+      ]
+    },
     "commands": [
       {
         "command": "brownboys.start",
