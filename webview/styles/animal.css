@@ -1,3 +1,118 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   background: #0a0908;
+  color: #a9927d;
+  font-family: "Nunito", "Segoe UI", sans-serif;
+  display: flex;
+  height: 100vh;       
+  overflow: hidden;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px;
+}
+
+.animal {
+  margin-bottom: 0px;
+}
+
+h2 {
+  font-size: 26px;
+  font-weight: 800;
+  color: #a9927d;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 14px;
+  color: #9898b0;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.progress-wrapper {
+  width: 180px;
+  margin: 0 auto 24px;
+  text-align: center;
+}
+
+.progress-label {
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: #9ad2cb;
+  margin-bottom: 10px;
+}
+
+.progress-container {
+  width: 48px;
+  height: 60vh; 
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(154, 210, 203, 0.5);
+  border-radius: 999px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  position: relative;
+}
+
+.progress-fill {
+  width: 100%;
+  height: 0%;
+  background: linear-gradient(
+    180deg,
+    rgba(154, 210, 203, 0.9),
+    rgba(88, 201, 220, 0.8)
+  );
+  transition: height 0.4s ease;
+  z-index: 1;
+}
+@keyframes crawling {
+  0% {
+    content: url("../../sprites/turtle_1.png");
+  }
+  25% {
+    content: url("../../sprites/turtle_2.png");
+  }
+  50% {
+    content: url("../../sprites/turtle_1.png");
+  }
+  75% {
+    content: url("../../sprites/turtle_3.png");
+  }
+  100% {
+    content: url("../../sprites/turtle_1.png");
+  }
+}
+
+.turtle-on-bar {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+  width: 54px;
+  height: auto;
+  z-index: 2;
+  animation: crawling 2s steps(1) infinite;
+}
+
+.timer-text {
+  margin-top: 12px;
+  font-family: "Space Mono", "Courier New", monospace;
+  font-size: 14px;
+  color: #c8c8dd;
+}
+
+.session-note {
+  font-size: 13px;
+  color: #9898b0;
+  max-width: 260px;
+  margin-top: 18px;
 }
