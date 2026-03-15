@@ -9,13 +9,14 @@ body {
   color: #a9927d;
   font-family: "Nunito", "Segoe UI", sans-serif;
   display: flex;
-  height: 100vh;       
+  height: 100vh;
   overflow: hidden;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   padding: 40px;
+  position: relative; 
 }
 
 .animal {
@@ -51,7 +52,7 @@ p {
 
 .progress-container {
   width: 48px;
-  height: 60vh; 
+  height: 60vh;
   margin: 0 auto;
   background: rgba(255, 255, 255, 0.05);
   border: 2px solid rgba(154, 210, 203, 0.5);
@@ -74,22 +75,13 @@ p {
   transition: height 0.4s ease;
   z-index: 1;
 }
+
 @keyframes crawling {
-  0% {
-    content: url("../../sprites/turtle_1.png");
-  }
-  25% {
-    content: url("../../sprites/turtle_2.png");
-  }
-  50% {
-    content: url("../../sprites/turtle_1.png");
-  }
-  75% {
-    content: url("../../sprites/turtle_3.png");
-  }
-  100% {
-    content: url("../../sprites/turtle_1.png");
-  }
+  0%   { content: url("../../sprites/turtle_1.png"); }
+  25%  { content: url("../../sprites/turtle_2.png"); }
+  50%  { content: url("../../sprites/turtle_1.png"); }
+  75%  { content: url("../../sprites/turtle_3.png"); }
+  100% { content: url("../../sprites/turtle_1.png"); }
 }
 
 .turtle-on-bar {
@@ -115,4 +107,41 @@ p {
   color: #9898b0;
   max-width: 260px;
   margin-top: 18px;
+}
+
+.overlay {
+  position: absolute; 
+  bottom: 20px;
+  right: 20px;
+  background: rgba(10, 9, 8, 0.92);
+  border: 1px solid rgba(154, 210, 203, 0.4);
+  border-radius: 12px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 999;
+  max-width: 260px;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.overlay-cat {
+  width: 56px;
+  height: 56px;
+  image-rendering: pixelated;
+  flex-shrink: 0;
+}
+
+.overlay-text {
+  font-family: 'Space Mono', 'Courier New', monospace;
+  font-size: 11px;
+  color: #f0e8d0;
+  line-height: 1.5;
+  margin: 0;
+  text-align: left;
 }

@@ -15,7 +15,6 @@
 </head>
 <body>
 
-
   <div class="progress-wrapper">
     <div class="progress-label">Session progress</div>
     <div class="progress-container" aria-label="Session progress">
@@ -23,6 +22,12 @@
       <img id="turtleOnBar" src="{{turtle1}}" alt="turtle" class="turtle-on-bar" width="54" height="54">
     </div>
     <div id="timerText" class="timer-text">Loading…</div>
+  </div>
+
+  <!-- NO CHANGE: overlay div was already added previously -->
+  <div id="overlay" class="overlay" style="display:none; opacity:0;">
+    <img id="overlay-cat" class="overlay-cat" src="" alt="cat">
+    <p class="overlay-text" id="overlay-typewriter"></p>
   </div>
 
   <script>
@@ -39,7 +44,6 @@
       const totalSeconds = totalMinutes * 60;
       const progressFill = document.getElementById('progressFill');
       const timerText = document.getElementById('timerText');
-      const progressContainer = document.querySelector('.progress-container');
 
       if (!totalSeconds || totalSeconds <= 0) {
         timerText.textContent = 'No duration set yet.';
@@ -47,7 +51,6 @@
       }
 
       let elapsedSeconds = 0;
-
       const turtle = document.getElementById('turtleOnBar');
 
       const update = () => {
@@ -55,10 +58,8 @@
         const percent = Math.min(100, (elapsedSeconds / totalSeconds) * 100);
         progressFill.style.height = `${percent}%`;
         if (turtle) {
-          // Position turtle right below the top of the progress fill
           const turtleBottom = Math.max(0, percent - 8);
           turtle.style.bottom = `${turtleBottom}%`;
-          // Cycle through turtle sprites based on progress
           const spriteIndex = Math.floor((percent / 100) * turtleSrcs.length) % turtleSrcs.length;
           turtle.src = turtleSrcs[spriteIndex];
         }
@@ -80,6 +81,75 @@
     }
 
     startProgressBar(durationMinutes);
+
+    const overlay = document.getElementById('overlay');
+    const overlayCat = document.getElementById('overlay-cat');
+    const overlayTypewriter = document.getElementById('overlay-typewriter');
+
+    const startFrames = [
+      '{{cat_start_pur_1}}',
+      '{{cat_start_pur_2}}',
+      '{{cat_start_pur_3}}',
+      '{{cat_start_pur_4}}'
+    ];
+
+    const purringFrames = [
+      '{{cat_purring_1}}',
+      '{{cat_purring_2}}',
+      '{{cat_purring_3}}',
+      '{{cat_purring_4}}'
+    ];
+
+    let catSpriteInterval = null;
+
+    function playStartThenPurr() {
+      let i = 0;
+      clearInterval(catSpriteInterval);
+      catSpriteInterval = setInterval(() => {
+        overlayCat.src = startFrames[i];
+        i++;
+        if (i >= startFrames.length) {
+          clearInterval(catSpriteInterval);
+          let j = 0;
+          catSpriteInterval = setInterval(() => {
+            overlayCat.src = purringFrames[j];
+            j = (j + 1) % purringFrames.length;
+          }, 150);
+        }
+      }, 120);
+    }
+
+    function typewriterOverlay(text, callback) {
+      overlayTypewriter.textContent = '';
+      let i = 0;
+      const t = setInterval(() => {
+        overlayTypewriter.textContent += text.charAt(i);
+        i++;
+        if (i >= text.length) {
+          clearInterval(t);
+          callback && callback();
+        }
+      }, 60);
+    }
+
+    function showOverlay() {
+      overlay.style.display = 'flex';
+      overlay.style.opacity = '1';
+      playStartThenPurr();
+      typewriterOverlay('Look at something 20 meters away for 20 seconds!', () => {
+        setTimeout(() => {
+          overlay.style.display = 'none';
+          overlay.style.opacity = '0';
+          clearInterval(catSpriteInterval);
+        }, 20000);
+      });
+    }
+
+    const twentyTwentyTwenty = {{twentyTwentyTwenty}};
+    if (twentyTwentyTwenty) {
+      setInterval(() => showOverlay(), 20 * 60 * 1000);
+    }
   </script>
+
 </body>
 </html>
