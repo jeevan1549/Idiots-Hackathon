@@ -49,7 +49,6 @@ class BrownBoysViewProvider {
 
       if (msg.command === "startWater") {
         this._breakDuration = msg.breakDuration;
-        this._sessionDuration = msg.duration;
         webviewView.webview.html = this._getWater(webviewView.webview);
       }
 
@@ -246,7 +245,16 @@ class BrownBoysViewProvider {
       .replace(/{{turtle1}}/g, spritesPath("turtle_1.png"))
       .replace(/{{turtle2}}/g, spritesPath("turtle_2.png"))
       .replace(/{{turtle3}}/g, spritesPath("turtle_3.png"))
-      .replace(/{{duration}}/g, durationMinutes.toString());
+      .replace(/{{duration}}/g, durationMinutes.toString())
+      .replace(/{{twentyTwentyTwenty}}/g, this._lastTwentyTwentyTwenty ? 'true' : 'false')
+      .replace(/{{cat_start_pur_1}}/g, spritesPath("cat_start_pur_1.png"))
+      .replace(/{{cat_start_pur_2}}/g, spritesPath("cat_start_pur_2.png"))
+      .replace(/{{cat_start_pur_3}}/g, spritesPath("cat_start_pur_3.png"))
+      .replace(/{{cat_start_pur_4}}/g, spritesPath("cat_start_pur_4.png"))
+      .replace(/{{cat_purring_1}}/g, spritesPath("cat_purring_1.png"))
+      .replace(/{{cat_purring_2}}/g, spritesPath("cat_purring_2.png"))
+      .replace(/{{cat_purring_3}}/g, spritesPath("cat_purring_3.png"))
+      .replace(/{{cat_purring_4}}/g, spritesPath("cat_purring_4.png"));
   }
 
   _getBreakTimer(webview) {
