@@ -157,7 +157,7 @@
 
     const twentyTwentyTwenty = {{twentyTwentyTwenty}};
     if (twentyTwentyTwenty) {
-      setInterval(() => showOverlay(), 1 * 60 * 1000);
+      setTimeout(() => showOverlay(), 16 * 1000);
     }
 
     // ── Otter overlay ─────────────────────────────────────────
@@ -182,19 +182,18 @@
       }, 150);
     }
 
-    // ADDED: typewriterOverlay2 was missing — this was causing the crash
-    function typewriterOverlay2(text, callback) {
-      otterTypewriter.textContent = '';
-      let i = 0;
-      const t = setInterval(() => {
-        otterTypewriter.textContent += text.charAt(i);
-        i++;
-        if (i >= text.length) {
-          clearInterval(t);
-          callback && callback();
-        }
-      }, 60);
-    }
+      function typewriterOverlay2(text, callback) {
+        otterTypewriter.textContent = '';
+        let i = 0;
+        const t = setInterval(() => {
+          otterTypewriter.textContent += text.charAt(i);
+          i++;
+          if (i >= text.length) {
+            clearInterval(t);
+            callback && callback();
+          }
+        }, 60);
+      }
 
     let otterVisible = false;
 
@@ -217,7 +216,7 @@
 
     const waterInterval = {{waterInterval}};
     if (waterInterval && waterInterval > 0) {
-      setInterval(() => showOtterOverlay(), 5 * 1000);
+      setTimeout(() => showOtterOverlay(), 5 * 1000);
     }
   </script>
 
