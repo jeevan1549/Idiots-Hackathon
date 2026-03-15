@@ -254,11 +254,7 @@ class BrownBoysViewProvider {
       .replace(/{{cat_purring_1}}/g, spritesPath("cat_purring_1.png"))
       .replace(/{{cat_purring_2}}/g, spritesPath("cat_purring_2.png"))
       .replace(/{{cat_purring_3}}/g, spritesPath("cat_purring_3.png"))
-      .replace(/{{cat_purring_4}}/g, spritesPath("cat_purring_4.png"))
-      .replace(/{{waterInterval}}/g, this._waterInterval ? this._waterInterval.toString() : '0')
-      .replace(/{{otter_1}}/g, spritesPath("otter_1.png"))
-      .replace(/{{otter_2}}/g, spritesPath("otter_2.png"))
-      .replace(/{{otter_3}}/g, spritesPath("otter_3.png"));
+      .replace(/{{cat_purring_4}}/g, spritesPath("cat_purring_4.png"));
   }
 
   _getBreakTimer(webview) {
